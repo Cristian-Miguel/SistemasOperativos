@@ -209,7 +209,7 @@ public class Consola{
      static List Bloqueados = new ArrayList();
      static List SusBloqueado = new ArrayList();
      public static String Archivo="",
-                   Direccion="D:\\Portafolio\\BaseJava\\SO\\Archivos\\",
+                   Direccion="D:\\Portafolio\\BaseJava\\SitemasOperativos\\Archivos\\",
                    Texto="";
      boolean entro=true;
 }

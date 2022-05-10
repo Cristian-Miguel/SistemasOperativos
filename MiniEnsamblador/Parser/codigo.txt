@@ -1,2 +1,15 @@
  MAIN:
-     PRINT "Hola mundo";
+     PRINT "Estas son mis variables";
+     LD CX, '8';
+     LD CX, '3';
+     LD AX, '5';
+     LDV variable, '4';
+     LDV variablex, '38';
+     ADD CX, variable;
+     SUB CX, AX;
+     LD AX, "";
+     PRINTR;
+     PRINT variablex;
+     PRINT "liberar recursos";
+     FREE MEMORIA, '50';
+     GET PROCESADOR;

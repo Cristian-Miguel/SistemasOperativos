@@ -197,8 +197,8 @@ public class MiniIDE extends javax.swing.JFrame {
         
     public void abrirArchMI(){
                 nombre = "ensambler.jj";
-                dir = "D:\\Portafolio\\BaseJava\\SO\\MiniEnsamblador\\Parser\\ensambler.jj";
-                archivo = "D:\\Portafolio\\BaseJava\\SO\\MiniEnsamblador\\Parser";
+                dir = "D:\\Portafolio\\BaseJava\\SitemasOperativos\\MiniEnsamblador\\Parser\\ensambler.jj";
+                archivo = "D:\\Portafolio\\BaseJava\\SitemasOperativos\\MiniEnsamblador\\Parser";
                 Archivos arch = new Archivos(dir, archivo, nombre);
                 String jj = arch.leerArchivo(archivo);
                 
