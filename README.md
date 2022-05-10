@@ -13,4 +13,5 @@ Una vez hecho esto cambios lo corremos, el proyecto funciona como un task manage
 - stop archivo
 - kill archivo
 - start archivo
+
 El archivo serian todos los txt que se encuentran en la carpeta archivos donde se ejecutan el javacc. mostramos tambien las memoria de la computadora actual.
