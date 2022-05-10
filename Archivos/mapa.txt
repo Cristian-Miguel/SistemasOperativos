@@ -1,0 +1,17 @@
+MAIN:
+LDV botas, "maestra";
+LDV botasx, "Ya";
+LDV botasy, "pasenos";
+LDV botasz, "por";
+LDV botasq, "favor";
+LDV botasw, "70";
+LDV botasf, "para todos";
+PRINT botas;
+PRINT botasx;
+PRINT botasy;
+PRINT botasz;
+PRINT botasq;
+PRINT botasw;
+PRINT botasf;
+FREE MEMORIA;
+FREE USB;

@@ -1,0 +1,265 @@
+options {
+LOOKAHEAD=1;
+OUTPUT_DIRECTORY="C:/Users/Asus/Desktop/MiniEnsamblador/Parser";
+//DEBUG_PARSER = true;
+}
+PARSER_BEGIN(ensambler)
+import java.util.*;
+public class ensambler{
+static Token tok;
+static String registros[][] = new String[4][2];
+static String variables[][] = new String[5][2];
+public static void main(String args[]) throws ParseException {
+	ensambler miParser = new ensambler(System.in);
+	registros[0][0] = "AX";
+	registros[1][0] = "BX";
+	registros[2][0] = "CX";
+	registros[3][0] = "DX";
+	for (int i = 0; i < variables.length; i++){
+		for (int j = 0; j < variables[i].length; j++){
+			variables[i][j]="";
+		}
+	}
+	
+	miParser.S();
+}
+}
+PARSER_END(ensambler)
+SKIP :{
+	"\t"
+	| "\n"
+	| "\r"
+	| " "
+}
+TOKEN [IGNORE_CASE] : {
+	<COMP: "COMP">|
+	<MOV: "MOV">|
+	<ADD: "ADD">|
+	<JMP: "JMP">|
+	<GET: "GET">|
+	<PRINTR: "PRINTR">|
+	<PRINT: "PRINT">|
+	<LD: "LD">|
+	<LDI: "LDV">|
+	<FREE: "FREE">|
+	<RECURSO: ("MEMORIA"|"USB"|"IMPRESORA"|"PROCESADOR")>|
+	<MINUS: "SUB">|
+	<MAIN: "MAIN">|
+	<HEX: "0x"(["0"-"9"]|["a"-"f"]){2}>|
+	<BIN: "0b"("0"|"1"){8}>|
+	<FIN: ";">|
+	<COMA: ",">|
+	<DP: ":">|
+	<REG: ("AX"|"BX"|"CX"|"DX")>|
+	<VALOR: ("'"(["0"-"9"])+"'")>|
+	<STR: ("\""(["A"-"Z"]|["0"-"9"]|" "|"")+"\"")>|
+	<ID: (["A"-"Z", "_"])+>
+	
+	
+	
+}
+void S() : {} {
+	  (<MAIN><DP> (producciones()))* <EOF>
+}
+void producciones() : {} {
+	(suma()|
+	registro()|
+	printr()|
+	print()|
+	variable()|
+	obtener()|
+	liberar()|
+	si()|
+	resta() |
+	mover())*	
+}
+void si() : {} {
+	<COMP>(<REG>)<COMA><REG><FIN>
+}
+void resta() : {int valorx, valx, valy; String reg1, reg2, val1="", val2="", valor;} {
+	<MINUS>(<REG>{reg1 = token.toString();}|<ID>{reg1 = token.toString();})<COMA>(<REG>{reg2 = token.toString();}|<ID>{reg2 = token.toString();})<FIN>
+	{
+		switch(reg1)
+		{
+		case "AX": val1=registros[0][1]; break;
+		case "BX": val1=registros[1][1]; break;	
+		case "CX": val1=registros[2][1]; break;
+		case "DX": val1=registros[3][1]; break;
+		default: for (int x = 0; x < variables.length; x++){
+						if(variables[x][0].equals(reg1)){
+							val1=variables[x][1];
+						}
+					} break;
+		}
+		val1 = val1.substring(1,val1.length()-1);
+		valx = Integer.parseInt(val1);
+		switch(reg2)
+		{
+		case "AX": val2=registros[0][1]; break;
+		case "BX": val2=registros[1][1]; break;	
+		case "CX": val2=registros[2][1]; break;
+		case "DX": val2=registros[3][1]; break;
+		default: for (int x = 0; x < variables.length; x++){
+						if(variables[x][0].equals(reg2)){
+							val2=variables[x][1];
+						}
+					} break;
+		}
+		val2 = val2.substring(1,val2.length()-1);
+		valy = Integer.parseInt(val2);
+		valorx = valx-valy;
+		valor = "'"+Integer.toString(valorx)+"'";
+		
+		switch(reg1)
+		{
+		case "AX": registros[0][1] = valor; break;
+		case "BX": registros[1][1] = valor; break;	
+		case "CX": registros[2][1] = valor; break;
+		case "DX": registros[3][1] = valor; break;
+		default: for (int x = 0; x < variables.length; x++){
+						if(variables[x][0].equals(reg1)){
+							variables[x][1]=valor;
+						}
+					} break;
+		}
+		
+	}
+}
+
+void suma() : {int valorx, valx, valy; String reg1, reg2, val1="", val2="", valor;} {
+	<ADD>(<REG>{reg1 = token.toString();}|<ID>{reg1 = token.toString();})<COMA>(<REG>{reg2 = token.toString();}|<ID>{reg2 = token.toString();})<FIN>
+	{
+		switch(reg1)
+		{
+		case "AX": val1=registros[0][1]; break;
+		case "BX": val1=registros[1][1]; break;	
+		case "CX": val1=registros[2][1]; break;
+		case "DX": val1=registros[3][1]; break;
+		default: for (int x = 0; x < variables.length; x++){
+						if(variables[x][0].equals(reg1)){
+							val1=variables[x][1];
+						}
+					} break;
+		}
+		val1 = val1.substring(1,val1.length()-1);
+		valx = Integer.parseInt(val1);
+		switch(reg2)
+		{
+		case "AX": val2=registros[0][1]; break;
+		case "BX": val2=registros[1][1]; break;	
+		case "CX": val2=registros[2][1]; break;
+		case "DX": val2=registros[3][1]; break;
+		default: for (int x = 0; x < variables.length; x++){
+						if(variables[x][0].equals(reg2)){
+							val2=variables[x][1];
+						}
+					} break;
+		}
+		val2 = val2.substring(1,val2.length()-1);
+		valy = Integer.parseInt(val2);
+		valorx = valx+valy;
+		valor = "'"+Integer.toString(valorx)+"'";
+		
+		switch(reg1)
+		{
+		case "AX": registros[0][1] = valor; break;
+		case "BX": registros[1][1] = valor; break;	
+		case "CX": registros[2][1] = valor; break;
+		case "DX": registros[3][1] = valor; break;
+		default: for (int x = 0; x < variables.length; x++){
+						if(variables[x][0].equals(reg1)){
+							variables[x][1]=valor;
+						}
+					} break;
+		}
+		
+	}
+}
+
+void mover() : {} {
+	<MOV><REG><COMA><REG><FIN>
+}
+
+
+void registro() : {String reg, valor;}{
+
+	<LD><REG>{reg = token.toString();}<COMA>(<VALOR>{valor = token.toString();}|<STR>{valor = token.toString();})
+	{
+		
+		if(valor.equals("\"\"")){
+			switch(reg)
+					{
+					case "AX": registros[0][1] = null;registros[0][0] = reg; break;
+					case "BX": registros[1][1] = null;registros[1][0] = reg; break;	
+					case "CX": registros[2][1] = null;registros[2][0] = reg; break;
+					case "DX": registros[3][1] = null;registros[3][0] = reg; break;	
+					}
+		}else{
+			switch(reg)
+					{
+					case "AX": registros[0][1] = valor;registros[0][0] = reg; break;
+					case "BX": registros[1][1] = valor;registros[1][0] = reg; break;	
+					case "CX": registros[2][1] = valor;registros[2][0] = reg; break;
+					case "DX": registros[3][1] = valor;registros[3][0] = reg; break;	
+					}
+		}
+		
+	}
+	<FIN>
+}
+void printr() : {} {
+	
+	<PRINTR><FIN>
+	{System.out.print(registros[0][0]);}
+	{System.out.print("|");}
+	{System.out.println(registros[0][1]);}
+	{System.out.print(registros[1][0]);}
+	{System.out.print("|");}
+	{System.out.println(registros[1][1]);}
+	{System.out.print(registros[2][0]);}
+	{System.out.print("|");}
+	{System.out.println(registros[2][1]);}
+	{System.out.print(registros[3][0]);}
+	{System.out.print("|");}
+	{System.out.println(registros[3][1]);}
+}
+
+void print() : {String var="";} {
+	
+	<PRINT>(<ID>{var = token.toString();
+					for (int x = 0; x < variables.length; x++){
+						if(variables[x][0].equals(var)){
+							System.out.println(variables[x][0]+": "+variables[x][1]);
+						}
+					}
+				}|<STR>{System.out.println(token.toString());})<FIN>
+	
+}
+void variable() : {String var="", valor="";} {
+	<LDI><ID>{var = token.toString();}<COMA>(<STR>{valor = token.toString();}|<VALOR> {valor = token.toString();})<FIN>
+	{
+		for (int i = 0; i < variables.length; i++){
+			if(variables[i][0].equals(var)){
+				variables[i][1]=valor;
+				break;
+			}else{
+				if(variables[i][0].equals("")){
+					variables[i][0]=var;
+					variables[i][1]=valor;
+					break;
+				}
+			}
+		}
+		
+	}
+}
+void obtener() : {} {
+	<GET><RECURSO>(<COMA><VALOR>)?<FIN>
+}
+void liberar() : {} {
+	<FREE><RECURSO>(<COMA><VALOR>)?<FIN>
+}
+
+
+
+

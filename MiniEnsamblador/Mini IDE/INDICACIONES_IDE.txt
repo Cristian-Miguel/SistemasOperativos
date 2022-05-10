@@ -1,0 +1,14 @@
+para usar el miniIDE 
+	->cargar el parser desde la opción File/Open, en la esquina superior izquierda
+	->checar que la linea de la dirección no esté suplicada en el parser.
+	->si no lo quieres cargar solo copia y pega el parser.
+	->click en JAVACC
+	->luego en JAVAC
+	->en la otra ventana escribir tu codigo ensamblador.
+
+si lo quieres trabajar en consola
+	->localizarte en tu carpeta donde está el archivo ensambler.jj
+	->utilizar el comando javacc ensambler.jj
+	->luego javac *.java
+	->al final java ensambler<miCodigo.txt
+	->este ultimo paso es suponiendo que tu codigo ensamblador está en un archivo de texto llamdo miCodigo.txt

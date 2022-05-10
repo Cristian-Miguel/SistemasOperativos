@@ -1,0 +1,21 @@
+->guarda variables
+->las variables deben ser solo letras, sin espacios
+->String "", enteros ''.
+->ADD puede sumar registros, variables, variables-registros.
+->SUB registros, variables, variables-registros.
+->PRINT variable; para imprimir una variable.
+->PRINT "Hola Mundo"; para imprimir un holamundo.
+->PRINTR; imprime los registros.
+->LD AX, 'entero'|"String"; así para asignar un valor a un registro
+->LDV variable, 'entero'|"String"; así para asignar un valor a una variable
+->espacio para solo 5 variables
+->espacio para solo 4 registros: AX, BX, CX, DX.
+->el programa debe comenzar con MAIN:
+->sumar ADD
+->restar SUB
+->LD AX, ""; //asi para vaciar 
+->tenemos 4 recursos "MEMORIA, IMPRESORA, USB, PROCESADOR"
+->para liberar es FREE MEMORIA, '50'; el dato 'x' debe ser entre comillas simples
+->puede ser sin valor FREE USB; esto porque algunos recursos son booleanos (USB, IMPRESORA)
+->GET funciona igual que free.
+
