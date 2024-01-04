@@ -1,8 +1,8 @@
-# SitemasOperativos
+# Sitemas Operativos
 Para poder ejecutarlo necesitaremos lo siguiente:
 
-- el jdk bin en las variables del sistema
-- el javacc descargado y si bin en las variables del sistema
+- la ruta del jdk bin en las variables del sistema
+- el javacc descargado y su ruta bin en las variables del sistema
 - el proyecto JavaApplication10 cambiar las rutas del archivo MiniIDE en donde se encuentra el Parse y el ensambler
 - el archivo ruta.txt dentro del proyecto JavaApplication10 con la ruta específica del parse que tengas actualmente, sin quitar el #ensambler.jj
 - el archivo ruta.txt en el proyecto comandos con la ruta específica del parse, sin quitar el #ensambler.jj
